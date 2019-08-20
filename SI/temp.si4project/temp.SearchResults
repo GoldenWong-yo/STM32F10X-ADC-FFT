@@ -1,0 +1,7 @@
+---- ADC_SourceData Matches (6 in 3 files) ----
+Get_FFT_Source_Data in app_fft.c (APP) : 		FFT_SourceData[i] = (u32)ADC_SourceData[i];
+Get_FFT_Source_Data in app_fft.c (APP) : 		FFT_SourceData[i] = (u32)ADC_SourceData[i][channel_idx];
+drv_adc.c (DRIVER) line 12 : u16 ADC_SourceData[SAMPLS_NUM] = {0};
+drv_adc.c (DRIVER) line 14 : u16 ADC_SourceData[SAMPLS_NUM][ADC_CHANNEL_NUMS] = {0};
+ADC_DMA_Configuration in drv_adc.c (DRIVER) : 	DMA_InitStructure.DMA_MemoryBaseAddr     = (u32)ADC_SourceData;
+drv_adc.h (DRIVER) line 24 : extern u16 ADC_SourceData[SAMPLS_NUM][ADC_CHANNEL_NUMS];
