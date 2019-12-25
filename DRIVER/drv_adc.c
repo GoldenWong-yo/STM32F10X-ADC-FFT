@@ -21,19 +21,19 @@ void ADC_GPIO_Configuration(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);				//Ê¹ÄÜGPIOAÊ±ÖÓ
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);				//ä½¿èƒ½GPIOAæ—¶é’Ÿ
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5;		//¹Ü½Å1/4/5
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;						//Ä£ÄâÊäÈëÄ£Ê½
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5;		//ç®¡è„š1/4/5
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;						//æ¨¡æ‹Ÿè¾“å…¥æ¨¡å¼
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);								//GPIO×é
+	GPIO_Init(GPIOA, &GPIO_InitStructure);								//GPIOç»„
 }
 
-void ADC_TIM2_GPIO_Configuration(void)        //ADCÅäÖÃº¯Êı
+void ADC_TIM2_GPIO_Configuration(void)        //ADCé…ç½®å‡½æ•°
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //Ê¹ÄÜGPIOAÊ±ÖÓ
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //ä½¿èƒ½GPIOAæ—¶é’Ÿ
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;				//TIM2_CH3
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
@@ -52,13 +52,9 @@ void ADC_TIM2_Configuration(void)
 
 	TIM_DeInit(TIM2);
 
-	//ÅäÖÃtim2´¥·¢ÆµÂÊÎª512Hz
-	#if SINGLECHANNEL
-	TIM_TimeBaseStructure.TIM_Period = TIM2_PERIOD - 1;							//ÉèÖÃ512Hz²ÉÑùÆµÂÊ
-	#else
-	TIM_TimeBaseStructure.TIM_Period = TIM2_PERIOD / ADC_CHANNEL_NUMS - 1;		//ÉèÖÃADC_CHANNEL_NUMS * 512Hz²ÉÑùÆµÂÊ
-	#endif
-	TIM_TimeBaseStructure.TIM_Prescaler = 71;									//ÏµÍ³Ö÷Æµ72M£¬ÕâÀï·ÖÆµ71£¬Ïàµ±ÓÚ1000KµÄ¶¨Ê±Æ÷2Ê±ÖÓ
+	//é…ç½®tim2è§¦å‘é¢‘ç‡ä¸º512Hz
+	TIM_TimeBaseStructure.TIM_Period = TIM2_PERIOD - 1;							//è®¾ç½®512Hzé‡‡æ ·é¢‘ç‡
+	TIM_TimeBaseStructure.TIM_Prescaler = 71;									//ç³»ç»Ÿä¸»é¢‘72Mï¼Œè¿™é‡Œåˆ†é¢‘71ï¼Œç›¸å½“äº1000Kçš„å®šæ—¶å™¨2æ—¶é’Ÿ
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(TIM2, & TIM_TimeBaseStructure);
@@ -66,7 +62,7 @@ void ADC_TIM2_Configuration(void)
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;				//TIM_OutputState_Disable;
 	TIM_OCInitStructure.TIM_Pulse = (TIM2_PERIOD - 1) / 2;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;					//Èç¹ûÊÇPWM1ÒªÎªLow£¬PWM2ÔòÎªHigh
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;					//å¦‚æœæ˜¯PWM1è¦ä¸ºLowï¼ŒPWM2åˆ™ä¸ºHigh
 	TIM_OC3Init(TIM2, & TIM_OCInitStructure);
 	
 	//TIM_InternalClockConfig(TIM2);
@@ -75,7 +71,7 @@ void ADC_TIM2_Configuration(void)
 	
 	//TIM_UpdateDisableConfig(TIM2,DISABLE);
 
-	//TIM_Cmd(TIM2, ENABLE);//×îºóÃæ´ò¿ª¶¨Ê±Æ÷Ê¹ÄÜ
+	//TIM_Cmd(TIM2, ENABLE);//æœ€åé¢æ‰“å¼€å®šæ—¶å™¨ä½¿èƒ½
 
 	//TIM_CtrlPWMOutputs(TIM2,ENABLE);
 }
@@ -86,19 +82,15 @@ void ADC_TIM3_Configuration(void)
 	
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);
 
-	#if SINGLECHANNEL
-	TIM_TimeBaseInitStructure.TIM_Period = TIM3_PERIOD - 1;							//ÉèÖÃ512Hz²ÉÑùÆµÂÊ
-	#else
-	TIM_TimeBaseInitStructure.TIM_Period = TIM3_PERIOD / ADC_CHANNEL_NUMS - 1;		//ÉèÖÃADC_CHANNEL_NUMS * 512Hz²ÉÑùÆµÂÊ
-	#endif
+	TIM_TimeBaseInitStructure.TIM_Period = TIM3_PERIOD - 1;							//è®¾ç½®512Hzé‡‡æ ·é¢‘ç‡
 	TIM_TimeBaseInitStructure.TIM_Prescaler = 71;
-	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;						//Ê±ÖÓ·ÖÆµ£¬TIM3ÊÇÍ¨ÓÃ¶¨Ê±Æ÷£¬»ù±¾¶¨Ê±Æ÷²»ÓÃÉèÖÃ
-	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;					//ÏòÉÏÉ¨Ãè
+	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;						//æ—¶é’Ÿåˆ†é¢‘ï¼ŒTIM3æ˜¯é€šç”¨å®šæ—¶å™¨ï¼ŒåŸºæœ¬å®šæ—¶å™¨ä¸ç”¨è®¾ç½®
+	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;					//å‘ä¸Šæ‰«æ
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStructure);
 	
-	TIM_SelectOutputTrigger(TIM3, TIM_TRGOSource_Update);							//Ñ¡ÔñTRGO×÷Îª´¥·¢Ô´Îª¶¨Ê±Æ÷¸üĞÂÊ±¼ä
+	TIM_SelectOutputTrigger(TIM3, TIM_TRGOSource_Update);							//é€‰æ‹©TRGOä½œä¸ºè§¦å‘æºä¸ºå®šæ—¶å™¨æ›´æ–°æ—¶é—´
 	
-	TIM_Cmd(TIM3,ENABLE);															//¿ªÆô¶¨Ê±Æ÷3
+	TIM_Cmd(TIM3,ENABLE);															//å¼€å¯å®šæ—¶å™¨3
 }
 
 void ADC_DMA_NVIC_Configuration(void)
@@ -140,12 +132,12 @@ void ADC_DMA_Configuration(void)
 	DMA_InitStructure.DMA_M2M                = DMA_M2M_Disable;
 	DMA_Init(DMA1_Channel1, &DMA_InitStructure);
 
-	DMA_Cmd(DMA1_Channel1, ENABLE);//Ê¹ÄÜDMA	
+	DMA_Cmd(DMA1_Channel1, ENABLE);//ä½¿èƒ½DMA	
 
 	ADC_DMA_NVIC_Configuration();
 }
 
-void ADC_Configuration(void)//ADCÅäÖÃº¯Êı
+void ADC_Configuration(void)//ADCé…ç½®å‡½æ•°
 {
 	ADC_InitTypeDef  ADC_InitStructure;
 
@@ -156,9 +148,11 @@ void ADC_Configuration(void)//ADCÅäÖÃº¯Êı
 	ADC_DeInit(ADC1);
 	ADC_InitStructure.ADC_Mode               = ADC_Mode_Independent;
 	#if SINGLECHANNEL
-	ADC_InitStructure.ADC_ScanConvMode       = DISABLE;								//Èç¹ûÊÇ¶àÍ¨µÀ£¬´ò¿ªÉ¨ÃèÄ£Ê½
+	ADC_InitStructure.ADC_ScanConvMode       = DISABLE;								//å¦‚æœæ˜¯å¤šé€šé“ï¼Œæ‰“å¼€æ‰«ææ¨¡å¼
+	ADC_InitStructure.ADC_NbrOfChannel       = 1;
 	#else
-	ADC_InitStructure.ADC_ScanConvMode       = ENABLE;								//Èç¹ûÊÇµ¥Í¨µÀ£¬¹Ø±ÕÉ¨ÃèÄ£Ê½
+	ADC_InitStructure.ADC_ScanConvMode       = ENABLE;								//å¦‚æœæ˜¯å•é€šé“ï¼Œå…³é—­æ‰«ææ¨¡å¼
+	ADC_InitStructure.ADC_NbrOfChannel       = ADC_CHANNEL_NUMS;
 	#endif
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
 	ADC_InitStructure.ADC_ExternalTrigConv   = ADC_ExternalTrigConv_T3_TRGO;
@@ -189,16 +183,16 @@ void ADC_Configuration(void)//ADCÅäÖÃº¯Êı
 
 
 /***********************************************************************************************************************************************
-*adc³õÊ¼»¯ÅäÖÃ
-*1.Ä¿     µÄ£ºÓÃADC²ÉÑùÖµ½øĞĞfftÔËËã£¬ÇóÈ¡²ÉÑùºó²¨ĞÎÏà¹ØÊôĞÔ£¨±¾ÀıÖ÷Òª·ÖÎö50HzÕıÑ¡²¨£¬¼°¸ß/µÍ´ÎĞ³²¨£©
-*2.·½     °¸£º¼Æ»®ADC²ÉÑùÆµÂÊÎª512Hz£¬²ÉÑù1024¸öµã½øĞĞfftÔËËã£¬Ê¹ÆµÓò·Ö±æÂÊ´ïµ½0.5Hz
-*3.Åä     ÖÃ£ºÓÉÓÚADC±¾Éí²»ÄÜÅäÖÃµ½512Hz£¬²ÉÓÃtim3¶¨Ê±´¥·¢²ÉÑù
-*4.Æä     Ëû£ºµ±ÏµÍ³Ê±ÖÓÎª72MHzÊ±£¬ADCÊ±ÖÓ×îÂıÊÇ9MHz£¬²ÉÑùÖÜÆÚ×î´óÔ¼Îª256¸öÊ±ÖÓÖÜÆÚ£¬ËùÒÔADC±¾Éí²ÉÑùÆµÂÊ×îÂıÔ¼Îª35156.25Hz£¨´óÓÚÎÒĞèÒªµÄ512Hz£©
-*            ÎªÊ²Ã´ÒªÑ¡512Hz£ºÓÉÓÚ²ÉÓÃ±ê×¼fft»ù4Ëã·¨£¨²ÉÑùµãÊı±ØĞëÊÇ4µÄ±¶Êı£©£¬ÎªÁËÊ¹ÆµÓò·Ö±æÂÊÎªÊ¶±ğ·½±ã£¨0.5Hz£©£¬ÓÖÎªÁËÂú×ã²ÉÑù¶¨Àí
-*            ±¾À´¼Æ»®²ÉÑù5120¸öµã£¨Ê¹ÆµÓò·Ö±æÂÊ´ïµ½0.1Hz£©£¬µ«ÊÇµ¥Æ¬»úRAM¿Õ¼ä²»¹»£¬ÓĞÌõ¼şµÄ¿ÉÒÔ³¢ÊÔ
-*5.Ïà¹ØÖªÊ¶£º²ÉÑù¶¨Àí£º²ÉÑùÆµÂÊĞè´óÓÚ±»²ÉÑù²¨ĞÎÆµÂÊµÄÁ½±¶
-*            ÆµÓò·Ö±æÂÊ = fs/N£¬£¨fs£º²ÉÑùÆµÂÊ£¬N£º²ÉÑùµãÊı£©
-*            ·ùÆµÌØĞÔĞòÁĞ£ºFFT_Mag[i]´ú±íµÄÒâË¼£¬ÆµÂÊ·ÖÁ¿Îªi*(fs/N)µÄ·ùÖµÎªFFT_Mag[i]
+*adcåˆå§‹åŒ–é…ç½®
+*1.ç›®     çš„ï¼šç”¨ADCé‡‡æ ·å€¼è¿›è¡Œfftè¿ç®—ï¼Œæ±‚å–é‡‡æ ·åæ³¢å½¢ç›¸å…³å±æ€§ï¼ˆæœ¬ä¾‹ä¸»è¦åˆ†æ50Hzæ­£é€‰æ³¢ï¼ŒåŠé«˜/ä½æ¬¡è°æ³¢ï¼‰
+*2.æ–¹     æ¡ˆï¼šè®¡åˆ’ADCé‡‡æ ·é¢‘ç‡ä¸º512Hzï¼Œé‡‡æ ·1024ä¸ªç‚¹è¿›è¡Œfftè¿ç®—ï¼Œä½¿é¢‘åŸŸåˆ†è¾¨ç‡è¾¾åˆ°0.5Hz
+*3.é…     ç½®ï¼šç”±äºADCæœ¬èº«ä¸èƒ½é…ç½®åˆ°512Hzï¼Œé‡‡ç”¨tim3å®šæ—¶è§¦å‘é‡‡æ ·
+*4.å…¶     ä»–ï¼šå½“ç³»ç»Ÿæ—¶é’Ÿä¸º72MHzæ—¶ï¼ŒADCæ—¶é’Ÿæœ€æ…¢æ˜¯9MHzï¼Œé‡‡æ ·å‘¨æœŸæœ€å¤§çº¦ä¸º256ä¸ªæ—¶é’Ÿå‘¨æœŸï¼Œæ‰€ä»¥ADCæœ¬èº«é‡‡æ ·é¢‘ç‡æœ€æ…¢çº¦ä¸º35156.25Hzï¼ˆå¤§äºæˆ‘éœ€è¦çš„512Hzï¼‰
+*            ä¸ºä»€ä¹ˆè¦é€‰512Hzï¼šç”±äºé‡‡ç”¨æ ‡å‡†fftåŸº4ç®—æ³•ï¼ˆé‡‡æ ·ç‚¹æ•°å¿…é¡»æ˜¯4çš„å€æ•°ï¼‰ï¼Œä¸ºäº†ä½¿é¢‘åŸŸåˆ†è¾¨ç‡ä¸ºè¯†åˆ«æ–¹ä¾¿ï¼ˆ0.5Hzï¼‰ï¼Œåˆä¸ºäº†æ»¡è¶³é‡‡æ ·å®šç†
+*            æœ¬æ¥è®¡åˆ’é‡‡æ ·5120ä¸ªç‚¹ï¼ˆä½¿é¢‘åŸŸåˆ†è¾¨ç‡è¾¾åˆ°0.1Hzï¼‰ï¼Œä½†æ˜¯å•ç‰‡æœºRAMç©ºé—´ä¸å¤Ÿï¼Œæœ‰æ¡ä»¶çš„å¯ä»¥å°è¯•
+*5.ç›¸å…³çŸ¥è¯†ï¼šé‡‡æ ·å®šç†ï¼šé‡‡æ ·é¢‘ç‡éœ€å¤§äºè¢«é‡‡æ ·æ³¢å½¢é¢‘ç‡çš„ä¸¤å€
+*            é¢‘åŸŸåˆ†è¾¨ç‡ = fs/Nï¼Œï¼ˆfsï¼šé‡‡æ ·é¢‘ç‡ï¼ŒNï¼šé‡‡æ ·ç‚¹æ•°ï¼‰
+*            å¹…é¢‘ç‰¹æ€§åºåˆ—ï¼šFFT_Mag[i]ä»£è¡¨çš„æ„æ€ï¼Œé¢‘ç‡åˆ†é‡ä¸ºi*(fs/N)çš„å¹…å€¼ä¸ºFFT_Mag[i]
 ************************************************************************************************************************************************/
 void Adc_Init(void)
 {
@@ -213,7 +207,7 @@ void Adc_Init(void)
 	ADC_Configuration();
 }
 
-//ADC_DMAÖĞ¶Ï·şÎñ³ÌĞò
+//ADC_DMAä¸­æ–­æœåŠ¡ç¨‹åº
 void DMA1_Channel1_IRQHandler(void)
 {
 	if(DMA_GetITStatus(DMA1_IT_TC1) != RESET)
