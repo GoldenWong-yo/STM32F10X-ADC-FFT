@@ -157,7 +157,6 @@ void ADC_Configuration(void)//ADC配置函数
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
 	ADC_InitStructure.ADC_ExternalTrigConv   = ADC_ExternalTrigConv_T3_TRGO;
 	ADC_InitStructure.ADC_DataAlign          = ADC_DataAlign_Right;
-	ADC_InitStructure.ADC_NbrOfChannel       = 1;
 	ADC_Init(ADC1, &ADC_InitStructure);
 
 	//==========================================================================   
