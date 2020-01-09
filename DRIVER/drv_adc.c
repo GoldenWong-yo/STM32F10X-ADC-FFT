@@ -155,7 +155,7 @@ void ADC_Configuration(void)//ADC配置函数
 	ADC_InitStructure.ADC_NbrOfChannel       = ADC_CHANNEL_NUMS;
 	#endif
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
-	ADC_InitStructure.ADC_ExternalTrigConv   = ADC_ExternalTrigConv_T3_TRGO;
+	ADC_InitStructure.ADC_ExternalTrigConv   = ADC_ExternalTrigConv_T3_TRGO;					//选择TIM3外部触发
 	ADC_InitStructure.ADC_DataAlign          = ADC_DataAlign_Right;
 	ADC_Init(ADC1, &ADC_InitStructure);
 
