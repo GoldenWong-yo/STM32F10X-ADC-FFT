@@ -15,7 +15,7 @@ void Init_Test_Pin(void)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
-void Test_Time_Func(void)
+void Test_Time_Func(void)			//test time
 {
 	static bool fg = true;
 
