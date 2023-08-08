@@ -48,7 +48,7 @@ int main(void)
 		if(global.adc_finish_fg)
 		{
 			global.adc_finish_fg = false;
-			Test_Time_Func();				//512Hz²ÉÑùÆµÂÊ£¬²ÉÑù1024µã£¬¿ÉÒÔ¿´µ½2sÖÓÖÜÆÚÖ´ĞĞFFT_test();
+			Test_Time_Func();				//512Hzé‡‡æ ·é¢‘ç‡ï¼Œé‡‡æ ·1024ç‚¹ï¼Œå¯ä»¥çœ‹åˆ°2sé’Ÿå‘¨æœŸæ‰§è¡ŒFFT_test();
 			FFT_test();
 		}
 	}

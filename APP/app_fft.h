@@ -3,7 +3,7 @@
 
 #define PI2   (6.28318530717959)
 #define PI    (3.141592653589795)
-#define Fs    ((float)256)   //²ÉÑùÆµÂÊ
+#define Fs    ((float)256)   //é‡‡æ ·é¢‘çŽ‡
 
 void InitBufInArray(void);
 void GetPowerMag(void);

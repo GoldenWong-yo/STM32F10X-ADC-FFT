@@ -7,7 +7,7 @@ void Init_Test_Pin(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //Ê¹ÄÜGPIOAÊ±ÖÓ
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //ä½¿èƒ½GPIOAæ—¶é’Ÿ
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;				//TIM2_CH3
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
